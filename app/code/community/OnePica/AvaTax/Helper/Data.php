@@ -393,7 +393,7 @@ class OnePica_AvaTax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Determines if address validation is enabled
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param OnePica_AvaTax_Model_Sales_Quote_Address $address
      * @param int $storeId
      * @return bool
      */
@@ -408,7 +408,7 @@ class OnePica_AvaTax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Determines if address normalization is enabled
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param OnePica_AvaTax_Model_Sales_Quote_Address $address
      * @param int $storeId
      * @return bool
      */
@@ -423,7 +423,7 @@ class OnePica_AvaTax_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Determines if the address should be filtered
      *
-     * @param Mage_Customer_Model_Address $address
+     * @param OnePica_AvaTax_Model_Sales_Quote_Address $address
      * @param int                         $storeId
      * @param int                         $filterMode
      * @param bool                        $isAddressValidation
@@ -453,7 +453,7 @@ class OnePica_AvaTax_Helper_Data extends Mage_Core_Helper_Abstract
         }
 
         if ($isAddressValidation && !$filter
-            && !in_array($address->getCountryId(), $this->getAddressValidationCountries($storeId))
+            && !in_array($address->getCountryId(), $this->getAddressValidationCountries())
         ) {
             $filter = 'country';
         }
@@ -632,5 +632,19 @@ class OnePica_AvaTax_Helper_Data extends Mage_Core_Helper_Abstract
         $fact = pow(10, $precision);
 
         return ceil($fact * $value) / $fact;
+    }
+
+    /**
+     * Get UPC attributeCode
+     *
+     * @param int $storeId
+     * @return string
+     */
+    public function getUpcAttributeCode($storeId = null)
+    {
+        if (!(bool)$this->_getConfig('upc_check_status', $storeId)) {
+            return '';
+        }
+        return (string)$this->_getConfig('upc_attribute_code', $storeId);
     }
 }
