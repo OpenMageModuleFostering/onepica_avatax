@@ -15,20 +15,29 @@
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-
 $installer = $this;
-
 $this->startSetup();
 
-$installer->run("CREATE TABLE IF NOT EXISTS `" . $this->getTable('avatax_records/log') . "` (
-	`log_id` INT UNSIGNED AUTO_INCREMENT,
-	`store_id` SMALLINT (5) UNSIGNED,
-	`level` VARCHAR (50),
-	`type` VARCHAR (50),
-	`request` TEXT,
-	`result` TEXT,
-	`additional` TEXT,
-	`created_at` DATETIME,
-	PRIMARY KEY(`log_id`)) COMMENT = 'Used by One Pica AvaTax extension' ENGINE = InnoDB");
+$installer->run("
+
+CREATE TABLE `" . $this->getTable('avatax_records/log') . "` (
+    `log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `store_id` smallint(5) unsigned DEFAULT NULL,
+    `level` varchar(50) DEFAULT NULL,
+    `type` varchar(50) DEFAULT NULL,
+    `request` text,
+    `result` text,
+    `additional` text,
+    `created_at` datetime DEFAULT NULL,
+    PRIMARY KEY (`log_id`),
+    KEY `FK_OP_AVATAX_LOG_STORE_ID_CORE_STORE_STORE_ID` (`store_id`),
+    KEY `IDX_OP_AVATAX_LOG_LEVEL` (`level`),
+    KEY `IDX_OP_AVATAX_LOG_TYPE` (`type`),
+    KEY `IDX_OP_AVATAX_LOG_CREATED_AT` (`created_at`),
+    CONSTRAINT `FK_OP_AVATAX_LOG_STORE_ID_CORE_STORE_STORE_ID` FOREIGN KEY (`store_id`)
+      REFERENCES `" . $this->getTable('core/store') . "` (`store_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB COMMENT='Used by One Pica AvaTax extension';
+
+");
 
 $this->endSetup();
