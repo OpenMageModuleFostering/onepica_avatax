@@ -11,36 +11,37 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document;
 
 /**
- * Class OnePica_AvaTax16_Document_Part
+ * Class \OnePica\AvaTax16\Document\Part
  */
-class OnePica_AvaTax16_Document_Part
+class Part
 {
     /**
      * Required properties
      *
      * @var array
      */
-    protected $_requiredProperties = array();
+    protected $requiredProperties = array();
 
     /**
      * Excluded properties (will be ignored during toArray function)
      *
      * @var array
      */
-    protected $_excludedProperties = array();
+    protected $excludedProperties = array();
 
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array();
+    protected $propertyComplexTypes = array();
 
     /**
      * Properties get and set methods
@@ -50,23 +51,23 @@ class OnePica_AvaTax16_Document_Part
         $action = substr($name, 0, 3);
         switch ($action) {
             case 'get':
-                $property = '_' . lcfirst(substr($name, 3));
-                if (property_exists($this,$property)) {
+                $property = lcfirst(substr($name, 3));
+                if (property_exists($this, $property)) {
                     return $this->{$property};
                 } else {
-                    $this->_throwWrongMethodErrorException($name);
+                    $this->throwWrongMethodErrorException($name);
                 }
                 break;
             case 'set':
-                $property = '_' . lcfirst(substr($name, 3));
-                if (property_exists($this,$property)) {
+                $property = lcfirst(substr($name, 3));
+                if (property_exists($this, $property)) {
                     $this->{$property} = $arguments[0];
                 } else {
-                    $this->_throwWrongMethodErrorException($name);
+                    $this->throwWrongMethodErrorException($name);
                 }
                 break;
             default :
-                $this->_throwWrongMethodErrorException($name);
+                $this->throwWrongMethodErrorException($name);
         }
     }
 
@@ -74,9 +75,9 @@ class OnePica_AvaTax16_Document_Part
      * Throw Wrong Method Error Exception
      *
      * @param string $methodName
-     * @throws OnePica_AvaTax16_Exception
+     * @throws \OnePica\AvaTax16\Exception
      */
-    protected function _throwWrongMethodErrorException($methodName)
+    protected function throwWrongMethodErrorException($methodName)
     {
         $trace = debug_backtrace();
         $errorMessage = 'Undefined method  '
@@ -85,7 +86,7 @@ class OnePica_AvaTax16_Document_Part
                       . $trace[0]['file']
                       . ' on line '
                       . $trace[0]['line'];
-        throw new OnePica_AvaTax16_Exception($errorMessage);
+        throw new \OnePica\AvaTax16\Exception($errorMessage);
     }
 
     /**
@@ -96,7 +97,7 @@ class OnePica_AvaTax16_Document_Part
     public function isValid()
     {
         foreach ($this as $key => $value) {
-            if (in_array($key, $this->_requiredProperties) && (null === $value)) {
+            if (in_array($key, $this->requiredProperties) && (null === $value)) {
                 return false;
             }
         }
@@ -107,23 +108,23 @@ class OnePica_AvaTax16_Document_Part
      * Convert object data to array
      *
      * @return array
-     * @throws OnePica_AvaTax16_Exception
+     * @throws \OnePica\AvaTax16\Exception
      */
     public function toArray()
     {
         if (!$this->isValid()) {
-            throw new OnePica_AvaTax16_Exception("Not valid data in " . get_class($this));
+            throw new \OnePica\AvaTax16\Exception("Not valid data in " . get_class($this));
         }
         $result = array();
         foreach ($this as $key => $value) {
-            if (in_array($key, $this->_excludedProperties)
-                || in_array($key, array('_requiredProperties', '_excludedProperties', '_propertyComplexTypes'))
+            if (in_array($key, $this->excludedProperties)
+                || in_array($key, array('requiredProperties', 'excludedProperties', 'propertyComplexTypes'))
                 || (null === $value)) {
                 // skip property
                 continue;
             }
-            $name = substr($key, 1);
-            $result[$name] = $this->_proceedToArrayItem($value);
+            $name = $key;
+            $result[$name] = $this->proceedToArrayItem($value);
         }
         return $result;
     }
@@ -131,13 +132,13 @@ class OnePica_AvaTax16_Document_Part
     /**
      * Convert object data to array
      *
-     * @param OnePica_AvaTax16_Document_Part|array|string $item
+     * @param \OnePica\AvaTax16\Document\Part|array|string $item
      * @return array|string
      */
-    protected function _proceedToArrayItem($item)
+    protected function proceedToArrayItem($item)
     {
         $result = null;
-        $itemType = ($item instanceof OnePica_AvaTax16_Document_Part) ? 'documentPart' :
+        $itemType = ($item instanceof Part) ? 'documentPart' :
                 ((is_array($item)) ? 'array' : 'simple');
 
         switch ($itemType) {
@@ -146,7 +147,7 @@ class OnePica_AvaTax16_Document_Part
                 break;
             case 'array':
                 foreach ($item as $key => $value) {
-                    $result[$key] = $this->_proceedToArrayItem($value);
+                    $result[$key] = $this->proceedToArrayItem($value);
                 }
                 break;
             case 'simple':
@@ -160,31 +161,31 @@ class OnePica_AvaTax16_Document_Part
     /**
      * Fill data from object
      *
-     * @param StdClass|array $data
+     * @param \StdClass|array $data
      * @return $this
      */
     public function fillData($data)
     {
         foreach ($data as $key => $value) {
-            $propName = '_' . $key;
+            $propName = $key;
             $method = 'set' . ucfirst($key);
-            if (!property_exists ($this, $propName)) {
+            if (!property_exists($this, $propName)) {
                 // skip unknown property received from response to prevent error
                 continue;
             }
-            if (isset($this->_propertyComplexTypes[$propName])) {
-                $propertyType = $this->_propertyComplexTypes[$propName]['type'];
-                if (isset($this->_propertyComplexTypes[$propName]['isArrayOf'])) {
-                    $items = null;
+            if (isset($this->propertyComplexTypes[$propName])) {
+                $propertyType = $this->propertyComplexTypes[$propName]['type'];
+                if (isset($this->propertyComplexTypes[$propName]['isArrayOf'])) {
+                    $items = array();
                     if (count($value) > 0) {
                         foreach ($value as $itemKey => $itemData) {
-                            $item = $this->_createItemAndFillData($propertyType, $itemData);
+                            $item = $this->createItemAndFillData($propertyType, $itemData);
                             $items[$itemKey] = $item;
                         }
                     }
                     $this->$method($items);
                 } else {
-                    $item = $value ? $this->_createItemAndFillData($propertyType, $value) : null;
+                    $item = $value ? $this->createItemAndFillData($propertyType, $value) : null;
                     $this->$method($item);
                 }
             } else {
@@ -198,10 +199,10 @@ class OnePica_AvaTax16_Document_Part
      * Create item object and fill data in it
      *
      * @param string $itemClassName
-     * @param StdClass|array $data
+     * @param \StdClass|array $data
      * @return object $item
      */
-    protected function _createItemAndFillData($itemClassName, $data)
+    protected function createItemAndFillData($itemClassName, $data)
     {
         $item = new $itemClassName();
         $item->fillData($data);

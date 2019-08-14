@@ -11,24 +11,61 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document\Response;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Document_Response_Header
+ * Class \OnePica\AvaTax16\Document\Response\Header
+ *
+ * @method string getAccountId()
+ * @method setAccountId(string $value)
+ * @method string getCompanyCode()
+ * @method setCompanyCode(string $value)
+ * @method string getTransactionType()
+ * @method setTransactionType(string $value)
+ * @method string getDocumentCode()
+ * @method setDocumentCode(string $value)
+ * @method string getCustomerCode()
+ * @method setCustomerCode(string $value)
+ * @method string getVendorCode()
+ * @method setVendorCode(string $value)
+ * @method string getTransactionDate()
+ * @method setTransactionDate(string $value)
+ * @method string getCurrency()
+ * @method setCurrency(string $value)
+ * @method float getTotalTaxOverrideAmount()
+ * @method setTotalTaxOverrideAmount(float $value)
+ * @method string getTaxCalculationDate()
+ * @method setTaxCalculationDate(string $value)
+ * @method string getDefaultAvalaraGoodsAndServicesModifierType()
+ * @method setDefaultAvalaraGoodsAndServicesModifierType(string $value)
+ * @method array getDefaultLocations()
+ * @method setDefaultLocations(array $value)
+ * @method string getDefaultTaxPayerCode()
+ * @method setDefaultTaxPayerCode(string $value)
+ * @method string getDefaultBuyerType()
+ * @method setDefaultBuyerType(string $value)
+ * @method string getDefaultUseType()
+ * @method setDefaultUseType(string $value)
+ * @method string getPurchaseOrderNumber()
+ * @method setPurchaseOrderNumber(string $value)
+ * @method array getMetadata()
  */
-class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Document_Part
+class Header extends Part
 {
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_defaultLocations' => array(
-            'type' => 'OnePica_AvaTax16_Document_Part_Location',
+    protected $propertyComplexTypes = array(
+        'defaultLocations' => array(
+            'type' => '\OnePica\AvaTax16\Document\Part\Location',
             'isArrayOf' => 'true'
         ),
     );
@@ -39,7 +76,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_accountId;
+    protected $accountId;
 
     /**
      * Company Code
@@ -47,7 +84,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_companyCode;
+    protected $companyCode;
 
     /**
      * Transaction Type
@@ -55,7 +92,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_transactionType;
+    protected $transactionType;
 
     /**
      * Document Code
@@ -63,7 +100,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_documentCode;
+    protected $documentCode;
 
     /**
      * Customer Code
@@ -71,7 +108,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_customerCode;
+    protected $customerCode;
 
     /**
      * Vendor Code
@@ -79,7 +116,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_vendorCode;
+    protected $vendorCode;
 
     /**
      * Transaction Date
@@ -87,7 +124,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_transactionDate;
+    protected $transactionDate;
 
     /**
      * Currency
@@ -95,7 +132,7 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_currency;
+    protected $currency;
 
     /**
      * Total Tax Override Amount
@@ -103,14 +140,14 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var float
      */
-    protected $_totalTaxOverrideAmount;
+    protected $totalTaxOverrideAmount;
 
     /**
      * Tax Calculation Date
      *
      * @var string
      */
-    protected $_taxCalculationDate;
+    protected $taxCalculationDate;
 
     /**
      * Default Avalara Goods And Services Modifier Type
@@ -118,15 +155,15 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_defaultAvalaraGoodsAndServicesModifierType;
+    protected $defaultAvalaraGoodsAndServicesModifierType;
 
     /**
      * Default locations
      * (Required)
      *
-     * @var OnePica_AvaTax16_Document_Part_Location[]
+     * @var \OnePica\AvaTax16\Document\Part\Location[]
      */
-    protected $_defaultLocations;
+    protected $defaultLocations;
 
     /**
      * Default Tax Payer Code
@@ -134,50 +171,50 @@ class OnePica_AvaTax16_Document_Response_Header extends OnePica_AvaTax16_Documen
      *
      * @var string
      */
-    protected $_defaultTaxPayerCode;
+    protected $defaultTaxPayerCode;
 
     /**
      * Default Buyer Type
      *
      * @var string
      */
-    protected $_defaultBuyerType;
+    protected $defaultBuyerType;
 
     /**
      * Default Use Type
      *
      * @var string
      */
-    protected $_defaultUseType;
+    protected $defaultUseType;
 
     /**
      * Purchase Order Number
      *
      * @var string
      */
-    protected $_purchaseOrderNumber;
+    protected $purchaseOrderNumber;
 
     /**
      * Metadata
      *
      * @var array
      */
-    protected $_metadata;
+    protected $metadata;
 
     /**
      * Set Metadata
      *
-     * @param array|StdClass $value
+     * @param array|\StdClass $value
      * @return $this
      */
     public function setMetadata($value)
     {
-        if ($value instanceof StdClass) {
+        if ($value instanceof \StdClass) {
             // convert object data to array
             // it is used during filling data from response
-            $this->_metadata = (array) $value;
+            $this->metadata = (array) $value;
         } else {
-            $this->_metadata = $value;
+            $this->metadata = $value;
         }
     }
 }

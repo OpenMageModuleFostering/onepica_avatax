@@ -11,73 +11,77 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16;
+
+use OnePica\AvaTax16\IO\Curl;
 
 /**
- * Abstract class OnePica_AvaTax16_ResourceAbstract
+ * Abstract class \OnePica\AvaTax16\ResourceAbstract
  */
-abstract class OnePica_AvaTax16_ResourceAbstract
+abstract class ResourceAbstract
 {
     /**
      * Config
      *
-     * @var OnePica_AvaTax16_Config
+     * @var \OnePica\AvaTax16\Config
      */
-    protected $_config;
+    protected $config;
 
     /**
      * Construct
      *
-     * @param OnePica_AvaTax16_Config $config
+     * @param \OnePica\AvaTax16\Config $config
      */
     public function __construct($config)
     {
-        $this->_config = $config;
+        $this->config = $config;
     }
 
     /**
      * Get config
      *
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function getConfig()
     {
-        return $this->_config;
+        return $this->config;
     }
 
     /**
      * Get Curl Object with headers from config
      *
-     * @return OnePica_AvaTax16_IO_Curl
+     * @return \OnePica\AvaTax16\IO\Curl
      */
-    protected function _getCurlObjectWithHeaders()
+    protected function getCurlObjectWithHeaders()
     {
-        $curl = new OnePica_AvaTax16_IO_Curl();
+        $curl = new Curl();
         $config = $this->getConfig();
         $curl->setHeader('Authorization', $config->getAuthorizationHeader());
         $curl->setHeader('Accept', $config->getAcceptHeader());
         $curl->setHeader('Content-Type', $config->getContentTypeHeader());
         $curl->setHeader('User-Agent', $config->getUserAgent());
+
         return $curl;
     }
 
     /**
      * Set Error Data To Response If Exists
      *
-     * @param OnePica_AvaTax16_Document_Part $response
-     * @param OnePica_AvaTax16_IO_Curl $curl
+     * @param \OnePica\AvaTax16\Document\Part $response
+     * @param Curl                            $curl
      * @return $this
      */
-    protected function _setErrorDataToResponseIfExists($response, $curl)
+    protected function setErrorDataToResponseIfExists($response, $curl)
     {
         if ($curl->getError()) {
             $response->setHasError(true);
             $errors = array();
             $responseData = $curl->getResponse();
-            if ($responseData instanceof stdClass) {
+            if ($responseData instanceof \stdClass) {
                 if (isset($responseData->errors) && count($responseData->errors)) {
                     foreach ($responseData->errors as $value) {
                         if (is_array($value)) {
@@ -90,8 +94,6 @@ abstract class OnePica_AvaTax16_ResourceAbstract
                 if (isset($responseData->message)) {
                     $errors['message'] = $responseData->message;
                 }
-            } else {
-                $errors['message'] = $responseData;
             }
             $response->setErrors($errors);
         }
@@ -101,15 +103,15 @@ abstract class OnePica_AvaTax16_ResourceAbstract
      * Send Request To Service And Get Response Object
      *
      * @param string $url
-     * @param array $options
+     * @param array  $options
      * @return mixed $result
      */
-    protected function _sendRequest($url, $options = array())
+    protected function sendRequest($url, $options = array())
     {
         $requestType = (isset($options['requestType'])) ? $options['requestType'] : 'GET';
         $data = (isset($options['data'])) ? $options['data'] : null;
         $returnClass = (isset($options['returnClass'])) ? $options['returnClass'] : null;
-        $curl = $this->_getCurlObjectWithHeaders();
+        $curl = $this->getCurlObjectWithHeaders();
         $result = null;
         switch ($requestType) {
             case 'GET':
@@ -121,7 +123,7 @@ abstract class OnePica_AvaTax16_ResourceAbstract
         }
         if (isset($returnClass)) {
             $responseObject = new $returnClass();
-            $this->_setErrorDataToResponseIfExists($responseObject, $curl);
+            $this->setErrorDataToResponseIfExists($responseObject, $curl);
             if (!$responseObject->getHasError()) {
                 $responseData = $curl->getResponse();
                 $responseObject->fillData($responseData);
@@ -130,6 +132,7 @@ abstract class OnePica_AvaTax16_ResourceAbstract
         } else {
             $result = $curl->getResponse();
         }
+
         return $result;
     }
 }

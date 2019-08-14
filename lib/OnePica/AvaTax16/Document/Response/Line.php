@@ -11,35 +11,72 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document\Response;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Document_Response_Line
+ * Class \OnePica\AvaTax16\Document\Response\Line
+ *
+ * @method string getLineCode()
+ * @method setLineCode(string $value)
+ * @method string getItemCode()
+ * @method setItemCode(string $value)
+ * @method string getAvalaraGoodsAndServicesType()
+ * @method setAvalaraGoodsAndServicesType(string $value)
+ * @method string getAvalaraGoodsAndServicesModifierType()
+ * @method setAvalaraGoodsAndServicesModifierType(string $value)
+ * @method float getNumberOfItems()
+ * @method setNumberOfItems(float $value)
+ * @method float getLineAmount()
+ * @method setLineAmount(float $value)
+ * @method string getItemDescription()
+ * @method setItemDescription(string $value)
+ * @method string getUnitOfMeasure()
+ * @method setUnitOfMeasure(string $value)
+ * @method array getLocations()
+ * @method setLocations(array $value)
+ * @method string getTaxPayerCode()
+ * @method setTaxPayerCode(string $value)
+ * @method string getBuyerType()
+ * @method setBuyerType(string $value)
+ * @method string getUseType()
+ * @method setUseType(string $value)
+ * @method string getLineAttributes()
+ * @method setLineAttributes(string $value)
+ * @method float getTaxOverrideAmount()
+ * @method setTaxOverrideAmount(float $value)
+ * @method bool getTaxIncluded()
+ * @method setTaxIncluded(bool $value)
+ * @method array getMetadata()
+ * @method \OnePica\AvaTax16\Document\Response\Line\CalculatedTax getCalculatedTax()
+ * @method setCalculatedTax(\OnePica\AvaTax16\Document\Response\Line\CalculatedTax $value)
  */
-class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_Part
+class Line extends Part
 {
     /**
      * Required properties
      *
      * @var array
      */
-    protected $_requiredProperties = array('_lineCode', '_lineAmount');
+    protected $requiredProperties = array('lineCode', 'lineAmount');
 
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_locations' => array(
-            'type' => 'OnePica_AvaTax16_Document_Part_Location',
+    protected $propertyComplexTypes = array(
+        'locations' => array(
+            'type' => '\OnePica\AvaTax16\Document\Part\Location',
             'isArrayOf' => 'true'
         ),
-        '_calculatedTax' => array(
-            'type' => 'OnePica_AvaTax16_Document_Response_Line_CalculatedTax',
+        'calculatedTax' => array(
+            'type' => '\OnePica\AvaTax16\Document\Response\Line\CalculatedTax',
         ),
     );
 
@@ -49,49 +86,49 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var string
      */
-    protected $_lineCode;
+    protected $lineCode;
 
     /**
      * Item code
      *
      * @var string
      */
-    protected $_itemCode;
+    protected $itemCode;
 
     /**
      * Avalara Goods And Services Type
      *
      * @var string
      */
-    protected $_avalaraGoodsAndServicesType;
+    protected $avalaraGoodsAndServicesType;
 
     /**
      * Avalara Goods And Services Modifier Type
      *
      * @var string
      */
-    protected $_avalaraGoodsAndServicesModifierType;
+    protected $avalaraGoodsAndServicesModifierType;
 
     /**
      * Number Of Items
      *
      * @var float
      */
-    protected $_numberOfItems;
+    protected $numberOfItems;
 
     /**
      * Line Amount
      *
      * @var float
      */
-    protected $_lineAmount;
+    protected $lineAmount;
 
     /**
      * Item Description
      *
      * @var string
      */
-    protected $_itemDescription;
+    protected $itemDescription;
 
     /**
      * Unit Of Measure
@@ -99,14 +136,14 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var string
      */
-    protected $_unitOfMeasure;
+    protected $unitOfMeasure;
 
     /**
      * Locations
      *
-     * @var OnePica_AvaTax16_Document_Part_Location[]
+     * @var \OnePica\AvaTax16\Document\Part\Location[]
      */
-    protected $_locations;
+    protected $locations;
 
     /**
      * Tax Payer Code
@@ -114,21 +151,21 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var string
      */
-    protected $_taxPayerCode;
+    protected $taxPayerCode;
 
     /**
      * Buyer Type
      *
      * @var string
      */
-    protected $_buyerType;
+    protected $buyerType;
 
     /**
      * Use Type
      *
      * @var string
      */
-    protected $_useType;
+    protected $useType;
 
     /**
      * Line Attributes
@@ -136,7 +173,7 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var string
      */
-    protected $_lineAttributes;
+    protected $lineAttributes;
 
     /**
      * Tax Override Amount
@@ -144,7 +181,7 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var float
      */
-    protected $_taxOverrideAmount;
+    protected $taxOverrideAmount;
 
     /**
      * Tax Included
@@ -152,37 +189,37 @@ class OnePica_AvaTax16_Document_Response_Line extends OnePica_AvaTax16_Document_
      *
      * @var bool
      */
-    protected $_taxIncluded;
+    protected $taxIncluded;
 
     /**
      * Tax Included
      *
      * @var array
      */
-    protected $_metadata;
+    protected $metadata;
 
     /**
      * Calculated Tax
      * (Only response)
      *
-     * @var OnePica_AvaTax16_Document_Response_Line_CalculatedTax
+     * @var \OnePica\AvaTax16\Document\Response\Line\CalculatedTax
      */
-    protected $_calculatedTax;
+    protected $calculatedTax;
 
     /**
      * Set Metadata
      *
-     * @param array|StdClass $value
+     * @param array|\StdClass $value
      * @return $this
      */
     public function setMetadata($value)
     {
-        if ($value instanceof StdClass) {
+        if ($value instanceof \StdClass) {
             // convert object data to array
             // it is used during filling data from response
-            $this->_metadata = (array) $value;
+            $this->metadata = (array) $value;
         } else {
-            $this->_metadata = $value;
+            $this->metadata = $value;
         }
     }
 }

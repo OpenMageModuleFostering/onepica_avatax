@@ -11,28 +11,38 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document\Response\Line;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Document_Response_Line_CalculatedTax
+ * Class \OnePica\AvaTax16\Document\Response\Line\CalculatedTax
+ *
+ * @method array getTaxByType()
+ * @method setTaxByType(array $value)
+ * @method float getTax()
+ * @method setTax(float $value)
+ * @method array getDetails()
+ * @method setDetails(array $value)
  */
-class OnePica_AvaTax16_Document_Response_Line_CalculatedTax extends OnePica_AvaTax16_Document_Part
+class CalculatedTax extends Part
 {
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_taxByType' => array(
-            'type' => 'OnePica_AvaTax16_Document_Response_Line_CalculatedTax_TaxByType',
+    protected $propertyComplexTypes = array(
+        'taxByType' => array(
+            'type' => '\OnePica\AvaTax16\Document\Response\Line\CalculatedTax\TaxByType',
             'isArrayOf' => 'true'
         ),
-        '_details' => array(
-            'type' => 'OnePica_AvaTax16_Document_Response_Line_CalculatedTax_Details',
+        'details' => array(
+            'type' => '\OnePica\AvaTax16\Document\Response\Line\CalculatedTax\Details',
             'isArrayOf' => 'true'
         )
     );
@@ -40,21 +50,21 @@ class OnePica_AvaTax16_Document_Response_Line_CalculatedTax extends OnePica_AvaT
     /**
      * Tax By Type
      *
-     * @var OnePica_AvaTax16_Document_Response_Line_CalculatedTax_TaxByType[]
+     * @var \OnePica\AvaTax16\Document\Response\Line\CalculatedTax\TaxByType[]
      */
-    protected $_taxByType;
+    protected $taxByType;
 
     /**
      * Tax
      *
      * @var float
      */
-    protected $_tax;
+    protected $tax;
 
     /**
      * Details
      *
-     * @var OnePica_AvaTax16_Document_Response_Line_CalculatedTax_Details[]
+     * @var \OnePica\AvaTax16\Document\Response\Line\CalculatedTax\Details[]
      */
-    protected $_details;
+    protected $details;
 }

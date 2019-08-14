@@ -11,105 +11,134 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document\Response\Line\CalculatedTax;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Document_Response_Line_CalculatedTax_Details
+ * Class \OnePica\AvaTax16\Document\Response\Line\CalculatedTax\Details
+ *
+ * @method string getJurisdictionName()
+ * @method setJurisdictionName(string $value)
+ * @method string getJurisdictionType()
+ * @method setJurisdictionType(string $value)
+ * @method string getTaxType()
+ * @method setTaxType(string $value)
+ * @method string getRateType()
+ * @method setRateType(string $value)
+ * @method string getScenario()
+ * @method setScenario(string $value)
+ * @method float getSubtotalTaxable()
+ * @method setSubtotalTaxable(float $value)
+ * @method float getSubtotalExempt()
+ * @method setSubtotalExempt(float $value)
+ * @method float getRate()
+ * @method setRate(float $value)
+ * @method float getTax()
+ * @method setTax(float $value)
+ * @method bool getExempt()
+ * @method setExempt(bool $value)
+ * @method string getExemptionReason()
+ * @method setExemptionReason(string $value)
+ * @method array getSignificantLocations()
+ * @method setSignificantLocations(array $value)
+ * @method string getComment()
+ * @method setComment(string $value)
  */
-class OnePica_AvaTax16_Document_Response_Line_CalculatedTax_Details
-    extends OnePica_AvaTax16_Document_Part
+class Details extends Part
 {
     /**
      * Jurisdiction Name
      *
      * @var string
      */
-    protected $_jurisdictionName;
+    protected $jurisdictionName;
 
     /**
      * Jurisdiction Type
      *
      * @var string
      */
-    protected $_jurisdictionType;
+    protected $jurisdictionType;
 
     /**
      * Tax Type
      *
      * @var string
      */
-    protected $_taxType;
+    protected $taxType;
 
     /**
      * Rate Type
      *
      * @var string
      */
-    protected $_rateType;
+    protected $rateType;
 
     /**
      * Scenario
      *
      * @var string
      */
-    protected $_scenario;
+    protected $scenario;
 
     /**
      * Subtotal Taxable
      *
      * @var float
      */
-    protected $_subtotalTaxable;
+    protected $subtotalTaxable;
 
     /**
      * Subtotal Exempt
      *
      * @var float
      */
-    protected $_subtotalExempt;
+    protected $subtotalExempt;
 
     /**
      * Rate
      *
      * @var float
      */
-    protected $_rate;
+    protected $rate;
 
     /**
      * Tax
      *
      * @var float
      */
-    protected $_tax;
+    protected $tax;
 
     /**
      * Exempt
      *
      * @var bool
      */
-    protected $_exempt;
+    protected $exempt;
 
     /**
      * ExemptionReason
      *
      * @var string
      */
-    protected $_exemptionReason;
+    protected $exemptionReason;
 
     /**
      * Significant Locations
      *
      * @var string[]
      */
-    protected $_significantLocations;
+    protected $significantLocations;
 
     /**
      * Comment
      *
      * @var string
      */
-    protected $_comment;
+    protected $comment;
 }

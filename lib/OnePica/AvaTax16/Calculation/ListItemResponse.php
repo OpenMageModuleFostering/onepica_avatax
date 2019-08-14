@@ -11,62 +11,74 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Calculation;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Calculation_ListItemResponse
+ * Class \OnePica\AvaTax16\Calculation\ListItemResponse
+ *
+ * @method \OnePica\AvaTax16\Calculation\ListItemResponse\Header getHeader()
+ * @method setHeader(\OnePica\AvaTax16\Calculation\ListItemResponse\Header $value)
+ * @method array getLines)
+ * @method setLines(array $value)
+ * @method \OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary getCalculatedTaxSummary()
+ * @method setCalculatedTaxSummary(\OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary $value)
+ * @method \OnePica\AvaTax16\Calculation\ListItemResponse\ProcessingInfo getProcessingInfo()
+ * @method setProcessingInfo(\OnePica\AvaTax16\Calculation\ListItemResponse\ProcessingInfo $value)
  */
-class OnePica_AvaTax16_Calculation_ListItemResponse extends OnePica_AvaTax16_Document_Part
+class ListItemResponse extends Part
 {
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_header' => array(
-            'type' => 'OnePica_AvaTax16_Calculation_ListItemResponse_Header'
+    protected $propertyComplexTypes = array(
+        'header' => array(
+            'type' => '\OnePica\AvaTax16\Calculation\ListItemResponse\Header'
         ),
-        '_lines' => array(
-            'type' => 'OnePica_AvaTax16_Calculation_ListItemResponse_Line',
+        'lines' => array(
+            'type' => '\OnePica\AvaTax16\Calculation\ListItemResponse\Line',
             'isArrayOf' => 'true'
         ),
-        '_calculatedTaxSummary' => array(
-            'type' => 'OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary'
+        'calculatedTaxSummary' => array(
+            'type' => '\OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary'
         ),
-        '_processingInfo' => array(
-            'type' => 'OnePica_AvaTax16_Calculation_ListItemResponse_ProcessingInfo'
+        'processingInfo' => array(
+            'type' => '\OnePica\AvaTax16\Calculation\ListItemResponse\ProcessingInfo'
         ),
     );
 
     /**
      * Header
      *
-     * @var OnePica_AvaTax16_Calculation_ListItemResponse_Header
+     * @var \OnePica\AvaTax16\Calculation\ListItemResponse\Header
      */
-    protected $_header;
+    protected $header;
 
     /**
      * Lines
      *
      * @var Array
      */
-    protected $_lines;
+    protected $lines;
 
     /**
      * Feedback
      *
-     * @var OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary
+     * @var \OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary
      */
-    protected $_calculatedTaxSummary;
+    protected $calculatedTaxSummary;
 
     /**
      * Feedback
      *
-     * @var OnePica_AvaTax16_Calculation_ListItemResponse_ProcessingInfo
+     * @var \OnePica\AvaTax16\Calculation\ListItemResponse\ProcessingInfo
      */
-    protected $_processingInfo;
+    protected $processingInfo;
 }

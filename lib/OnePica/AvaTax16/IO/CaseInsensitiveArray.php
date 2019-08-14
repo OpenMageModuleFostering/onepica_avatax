@@ -11,22 +11,23 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\IO;
 
 /**
- * Class OnePica_AvaTax16_IO_CaseInsensitiveArray
+ * Class \OnePica\AvaTax16\IO\CaseInsensitiveArray
  */
-class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
+class CaseInsensitiveArray implements \ArrayAccess, \Countable, \Iterator
 {
     /**
      * Container
      *
      * @var array
      */
-    protected $_container = array();
+    protected $container = array();
 
     /**
      * Offset Set
@@ -38,14 +39,14 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
     public function offsetSet($offset, $value)
     {
         if ($offset === null) {
-            $this->_container[] = $value;
+            $this->container[] = $value;
         } else {
-            $index = array_search(strtolower($offset), array_keys(array_change_key_case($this->_container, CASE_LOWER)));
+            $index = array_search(strtolower($offset), array_keys(array_change_key_case($this->container, CASE_LOWER)));
             if (!($index === false)) {
-                $keys = array_keys($this->_container);
-                unset($this->_container[$keys[$index]]);
+                $keys = array_keys($this->container);
+                unset($this->container[$keys[$index]]);
             }
-            $this->_container[$offset] = $value;
+            $this->container[$offset] = $value;
         }
     }
 
@@ -57,7 +58,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function offsetExists($offset)
     {
-        return array_key_exists(strtolower($offset), array_change_key_case($this->_container, CASE_LOWER));
+        return array_key_exists(strtolower($offset), array_change_key_case($this->container, CASE_LOWER));
     }
 
     /**
@@ -68,7 +69,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function offsetUnset($offset)
     {
-        unset($this->_container[$offset]);
+        unset($this->container[$offset]);
     }
 
     /**
@@ -79,12 +80,12 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function offsetGet($offset)
     {
-        $index = array_search(strtolower($offset), array_keys(array_change_key_case($this->_container, CASE_LOWER)));
+        $index = array_search(strtolower($offset), array_keys(array_change_key_case($this->container, CASE_LOWER)));
         if ($index === false) {
             return null;
         }
 
-        $values = array_values($this->_container);
+        $values = array_values($this->container);
         return $values[$index];
     }
 
@@ -95,7 +96,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function count()
     {
-        return count($this->_container);
+        return count($this->container);
     }
 
     /**
@@ -105,7 +106,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function current()
     {
-        return current($this->_container);
+        return current($this->container);
     }
 
     /**
@@ -115,7 +116,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function next()
     {
-        return next($this->_container);
+        return next($this->container);
     }
 
     /**
@@ -125,7 +126,7 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function key()
     {
-        return key($this->_container);
+        return key($this->container);
     }
 
     /**
@@ -145,6 +146,6 @@ class OnePica_AvaTax16_IO_CaseInsensitiveArray implements \ArrayAccess, \Countab
      */
     public function rewind()
     {
-        reset($this->_container);
+        reset($this->container);
     }
 }

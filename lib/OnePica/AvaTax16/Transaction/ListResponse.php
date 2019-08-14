@@ -11,41 +11,51 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Transaction;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Transaction_ListResponse
+ * Class \OnePica\AvaTax16\Transaction\ListResponse
+ *
+ * @method bool getHasError()
+ * @method setHasError(bool $value)
+ * @method array getErrors()
+ * @method setErrors(array $value)
+ * @method array getItems()
+ * @method setItems(array $value)
  */
-class OnePica_AvaTax16_Transaction_ListResponse extends OnePica_AvaTax16_Document_Part
+class ListResponse extends Part
 {
     /**
      * Has error
      *
      * @var bool
      */
-    protected $_hasError = false;
+    protected $hasError = false;
 
     /**
      * Errors
      *
      * @var array
      */
-    protected $_errors;
+    protected $errors = array();
 
     /**
      * List items
      *
-     * @var OnePica_AvaTax16_Transaction_ListItemResponse[]
+     * @var \OnePica\AvaTax16\Transaction\ListItemResponse[]
      */
-    protected $_items;
+    protected $items;
 
     /**
      * Fill data from object
      *
-     * @param StdClass|array $data
+     * @param \StdClass|array $data
      * @return $this
      */
     public function fillData($data)
@@ -53,7 +63,7 @@ class OnePica_AvaTax16_Transaction_ListResponse extends OnePica_AvaTax16_Documen
         $result = array();
         if (is_array($data)) {
             foreach ($data as $dataItem) {
-                $calculationListItem = new OnePica_AvaTax16_Transaction_ListItemResponse();
+                $calculationListItem = new ListItemResponse();
                 $result[] = $calculationListItem->fillData($dataItem);
             }
         }

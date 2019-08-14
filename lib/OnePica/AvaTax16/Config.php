@@ -11,15 +11,16 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16;
 
 /**
- * Class OnePica_AvaTax16_Config
+ * Class \OnePica\AvaTax16\Config
  */
-class OnePica_AvaTax16_Config
+class Config
 {
     /**
      * Accept header
@@ -41,35 +42,35 @@ class OnePica_AvaTax16_Config
      *
      * @var string
      */
-    protected $_baseUrl;
+    protected $baseUrl;
 
     /**
      * Account id
      *
      * @var string
      */
-    protected $_accountId;
+    protected $accountId;
 
     /**
      * Company code
      *
      * @var string
      */
-    protected $_companyCode;
+    protected $companyCode;
 
     /**
      * Authorization header
      *
      * @var string
      */
-    protected $_authorizationHeader;
+    protected $authorizationHeader;
 
     /**
      * User agent
      *
      * @var string
      */
-    protected $_userAgent;
+    protected $userAgent;
 
     /**
      * Construct
@@ -84,11 +85,11 @@ class OnePica_AvaTax16_Config
      * Set base url
      *
      * @param string $value
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function setBaseUrl($value)
     {
-        $this->_baseUrl = $value;
+        $this->baseUrl = $value;
     }
 
     /**
@@ -98,18 +99,18 @@ class OnePica_AvaTax16_Config
      */
     public function getBaseUrl()
     {
-        return $this->_baseUrl;
+        return $this->baseUrl;
     }
 
     /**
      * Set user agent
      *
      * @param string $value
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function setUserAgent($value)
     {
-        $this->_userAgent = $value;
+        $this->userAgent = $value;
     }
 
     /**
@@ -119,18 +120,18 @@ class OnePica_AvaTax16_Config
      */
     public function getUserAgent()
     {
-        return $this->_userAgent;
+        return $this->userAgent;
     }
 
     /**
      * Set account id
      *
      * @param string $value
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function setAccountId($value)
     {
-        $this->_accountId = $value;
+        $this->accountId = $value;
     }
 
     /**
@@ -140,18 +141,18 @@ class OnePica_AvaTax16_Config
      */
     public function getAccountId()
     {
-        return $this->_accountId;
+        return $this->accountId;
     }
 
     /**
      * Set company code
      *
      * @param string $value
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function setCompanyCode($value)
     {
-        $this->_companyCode = $value;
+        $this->companyCode = $value;
     }
 
     /**
@@ -161,18 +162,18 @@ class OnePica_AvaTax16_Config
      */
     public function getCompanyCode()
     {
-        return $this->_companyCode;
+        return $this->companyCode;
     }
 
     /**
      * Set authorization header
      *
      * @param string $value
-     * @return OnePica_AvaTax16_Config
+     * @return \OnePica\AvaTax16\Config
      */
     public function setAuthorizationHeader($value)
     {
-        $this->_authorizationHeader = $value;
+        $this->authorizationHeader = $value;
     }
 
     /**
@@ -182,7 +183,7 @@ class OnePica_AvaTax16_Config
      */
     public function getAuthorizationHeader()
     {
-        return $this->_authorizationHeader;
+        return $this->authorizationHeader;
     }
 
     /**

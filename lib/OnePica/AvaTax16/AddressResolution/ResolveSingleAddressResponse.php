@@ -11,44 +11,60 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\AddressResolution;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_AddressResolution_ResolveSingleAddressResponse
+ * Class \OnePica\AvaTax16\AddressResolution\ResolveSingleAddressResponse
+ *
+ * @method bool getHasError()
+ * @method setHasError(bool $value)
+ * @method array getErrors()
+ * @method setErrors(array $value)
+ * @method \OnePica\AvaTax16\Document\Part\Location\Address getAddress()
+ * @method setAddress(\OnePica\AvaTax16\Document\Part\Location\Address $value)
+ * @method \OnePica\AvaTax16\Document\Part\Location\LatLong getCoordinates()
+ * @method setCoordinates(\OnePica\AvaTax16\Document\Part\Location\LatLong $value)
+ * @method string getResolutionQuality()
+ * @method setResolutionQuality(string $value)
+ * @method array getTaxAuthorities()
+ * @method setTaxAuthorities(array $value)
  */
-class OnePica_AvaTax16_AddressResolution_ResolveSingleAddressResponse extends OnePica_AvaTax16_Document_Part
+class ResolveSingleAddressResponse extends Part
 {
     /**
      * Has error
      *
      * @var bool
      */
-    protected $_hasError = false;
+    protected $hasError = false;
 
     /**
      * Errors
      *
      * @var array
      */
-    protected $_errors;
+    protected $errors = array();
 
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_address' => array(
-            'type' => 'OnePica_AvaTax16_Document_Part_Location_Address'
+    protected $propertyComplexTypes = array(
+        'address' => array(
+            'type' => '\OnePica\AvaTax16\Document\Part\Location\Address'
         ),
-        '_coordinates' => array(
-            'type' => 'OnePica_AvaTax16_Document_Part_Location_LatLong'
+        'coordinates' => array(
+            'type' => '\OnePica\AvaTax16\Document\Part\Location\LatLong'
         ),
-        '_taxAuthorities' => array(
-            'type' => 'OnePica_AvaTax16_AddressResolution_TaxAuthority',
+        'taxAuthorities' => array(
+            'type' => '\OnePica\AvaTax16\AddressResolution\TaxAuthority',
             'isArrayOf' => 'true'
         ),
     );
@@ -56,28 +72,28 @@ class OnePica_AvaTax16_AddressResolution_ResolveSingleAddressResponse extends On
     /**
      * Address
      *
-     * @var OnePica_AvaTax16_Document_Part_Location_Address
+     * @var \OnePica\AvaTax16\Document\Part\Location\Address
      */
-    protected $_address;
+    protected $address;
 
     /**
      * Coordinates
      *
-     * @var OnePica_AvaTax16_Document_Part_Location_LatLong
+     * @var \OnePica\AvaTax16\Document\Part\Location\LatLong
      */
-    protected $_coordinates;
+    protected $coordinates;
 
     /**
      * Resolution Quality
      *
      * @var string
      */
-    protected $_resolutionQuality;
+    protected $resolutionQuality;
 
     /**
      * Tax Authorities
      *
      * @var array
      */
-    protected $_taxAuthorities;
+    protected $taxAuthorities;
 }

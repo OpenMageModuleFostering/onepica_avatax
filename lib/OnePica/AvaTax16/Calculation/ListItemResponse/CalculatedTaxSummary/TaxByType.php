@@ -11,25 +11,34 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary;
+
+use OnePica\AvaTax16\Document\Part;
 
 /**
- * Class OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary_TaxByType
+ * Class \OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary\TaxByType
+ *
+ * @method float getTax()
+ * @method setTax(float $value)
+ * @method float getJurisdictions()
+ * @method setJurisdictions(float $value)
+ * @method string getComment()
+ * @method setComment(string $value)
  */
-class OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary_TaxByType
-    extends OnePica_AvaTax16_Document_Part
+class TaxByType extends Part
 {
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_jurisdictions' => array(
-            'type' => 'OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary_TaxByType_Details'
+    protected $propertyComplexTypes = array(
+        'jurisdictions' => array(
+            'type' => '\OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary\TaxByType\Details'
         )
     );
 
@@ -38,19 +47,19 @@ class OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary_TaxByTy
      *
      * @var float
      */
-    protected $_tax;
+    protected $tax;
 
     /**
      * jurisdictions
      *
-     * @var OnePica_AvaTax16_Calculation_ListItemResponse_CalculatedTaxSummary_TaxByType_Details
+     * @var \OnePica\AvaTax16\Calculation\ListItemResponse\CalculatedTaxSummary\TaxByType\Details
      */
-    protected $_jurisdictions;
+    protected $jurisdictions;
 
     /**
      * Comment
      *
      * @var string
      */
-    protected $_comment;
+    protected $comment;
 }

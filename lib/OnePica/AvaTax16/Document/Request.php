@@ -11,66 +11,78 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\Document;
 
 /**
- * Class OnePica_AvaTax16_Document_Request
+ * Class OnePica\AvaTax16\Document\Request
+ *
+ * @method bool getHasError()
+ * @method setHasError(bool $value)
+ * @method array getErrors()
+ * @method setErrors(array $value)
+ * @method \OnePica\AvaTax16\Document\Request\Header getHeader()
+ * @method setHeader(\OnePica\AvaTax16\Document\Request\Header $value)
+ * @method array getLines()
+ * @method setLines(array $value)
+ * @method \OnePica\AvaTax16\Document\Part\Feedback getFeedback()
+ * @method setFeedback(\OnePica\AvaTax16\Document\Part\Feedback $value)
  */
-class OnePica_AvaTax16_Document_Request extends OnePica_AvaTax16_Document_Part
+class Request extends Part
 {
     /**
      * Has error
      *
      * @var bool
      */
-    protected $_hasError = false;
+    protected $hasError = false;
 
     /**
      * Errors
      *
      * @var array
      */
-    protected $_errors;
+    protected $errors = array();
 
     /**
      * Types of complex properties
      *
      * @var array
      */
-    protected $_propertyComplexTypes = array(
-        '_header' => array(
-            'type' => 'OnePica_AvaTax16_Document_Request_Header'
+    protected $propertyComplexTypes = array(
+        'header' => array(
+            'type' => '\OnePica\AvaTax16\Document\Request\Header'
         ),
-        '_lines' => array(
-            'type' => 'OnePica_AvaTax16_Document_Request_Line',
+        'lines' => array(
+            'type' => '\OnePica\AvaTax16\Document\Request\Line',
             'isArrayOf' => 'true'
         ),
-        '_feedback' => array(
-            'type' => 'OnePica_AvaTax16_Document_Part_Feedback'
+        'feedback' => array(
+            'type' => '\OnePica\AvaTax16\Document\Part\Feedback'
         ),
     );
 
     /**
      * Header
      *
-     * @var OnePica_AvaTax16_Document_Request_Header
+     * @var \OnePica\AvaTax16\Document\Request\Header
      */
-    protected $_header;
+    protected $header;
 
     /**
      * Lines
      *
-     * @var OnePica_AvaTax16_Document_Request_Line[]
+     * @var \OnePica\AvaTax16\Document\Request\Line[]
      */
-    protected $_lines;
+    protected $lines;
 
     /**
      * Feedback
      *
-     * @var OnePica_AvaTax16_Document_Part_Feedback
+     * @var \OnePica\AvaTax16\Document\Part\Feedback
      */
-    protected $_feedback;
+    protected $feedback;
 }

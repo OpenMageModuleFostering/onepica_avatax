@@ -11,15 +11,16 @@
  * to codemaster@onepica.com so we can send you a copy immediately.
  *
  * @category  OnePica
- * @package   OnePica_AvaTax
- * @copyright Copyright (c) 2015 One Pica, Inc. (http://www.onepica.com)
+ * @package   OnePica_AvaTax16
+ * @copyright Copyright (c) 2016 One Pica, Inc. (http://www.onepica.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+namespace OnePica\AvaTax16\IO;
 
 /**
- * Class OnePica_AvaTax16_IO_Curl
+ * Class \OnePica\AvaTax16\IO\Curl
  */
-class OnePica_AvaTax16_IO_Curl
+class Curl
 {
     /**
      * Version
@@ -36,210 +37,210 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @var resource
      */
-    protected $_curl;
+    protected $curl;
 
     /**
      * Id
      *
      * @var string
      */
-    protected $_id = null;
+    protected $id = null;
 
     /**
      * Error
      *
      * @var bool
      */
-    protected $_error = false;
+    protected $error = false;
 
     /**
      * Error code
      *
      * @var int
      */
-    protected $_errorCode = 0;
+    protected $errorCode = 0;
 
     /**
      * Error message
      *
      * @var string
      */
-    protected $_errorMessage = null;
+    protected $errorMessage = null;
 
     /**
      * Curl error
      *
      * @var bool
      */
-    protected $_curlError = false;
+    protected $curlError = false;
 
     /**
      * Curl error code
      *
      * @var int
      */
-    protected $_curlErrorCode = 0;
+    protected $curlErrorCode = 0;
 
     /**
      * Curl error message
      *
      * @var string
      */
-    protected $_curlErrorMessage = null;
+    protected $curlErrorMessage = null;
 
     /**
      * Http error
      *
      * @var bool
      */
-    protected $_httpError = false;
+    protected $httpError = false;
 
     /**
      * Http status code
      *
      * @var int
      */
-    protected $_httpStatusCode = 0;
+    protected $httpStatusCode = 0;
 
     /**
      * Http error message
      *
      * @var string
      */
-    protected $_httpErrorMessage = null;
+    protected $httpErrorMessage = null;
 
     /**
      * Base url
      *
      * @var string
      */
-    protected $_baseUrl = null;
+    protected $baseUrl = null;
 
     /**
      * Url
      *
      * @var string
      */
-    protected $_url = null;
+    protected $url = null;
 
     /**
      * Request headers
      *
      * @var array
      */
-    protected $_requestHeaders = null;
+    protected $requestHeaders = null;
 
     /**
      * Response headers
      *
      * @var array
      */
-    protected $_responseHeaders = null;
+    protected $responseHeaders = null;
 
     /**
      * Raw response headers
      *
      * @var string
      */
-    protected $_rawResponseHeaders = '';
+    protected $rawResponseHeaders = '';
 
     /**
      * Response
      *
      * @var mixed
      */
-    protected $_response = null;
+    protected $response = null;
 
     /**
      * Raw response
      *
      * @var string
      */
-    protected $_rawResponse = null;
+    protected $rawResponse = null;
 
     /**
      * Before send function
      *
      * @var string
      */
-    protected $_beforeSendFunction = null;
+    protected $beforeSendFunction = null;
 
     /**
      * Download complete function
      *
      * @var string
      */
-    protected $_downloadCompleteFunction = null;
+    protected $downloadCompleteFunction = null;
 
     /**
      * Success function
      *
      * @var string
      */
-    protected $_successFunction = null;
+    protected $successFunction = null;
 
     /**
      * Error function
      *
      * @var string
      */
-    protected $_errorFunction = null;
+    protected $errorFunction = null;
 
     /**
      * Complete function
      *
      * @var string
      */
-    protected $_completeFunction = null;
+    protected $completeFunction = null;
 
     /**
      * Cookies
      *
      * @var array
      */
-    protected $_cookies = array();
+    protected $cookies = array();
 
     /**
      * Response cookies
      *
      * @var array
      */
-    protected $_responseCookies = array();
+    protected $responseCookies = array();
 
     /**
      * Headers
      *
      * @var array
      */
-    protected $_headers = array();
+    protected $headers = array();
 
     /**
      * Options
      *
      * @var array
      */
-    protected $_options = array();
+    protected $options = array();
 
     /**
      * Options
      *
      * @var function
      */
-    protected $_jsonDecoder = null;
+    protected $jsonDecoder = null;
 
     /**
      * Json pattern
      *
      * @var string
      */
-    protected $_jsonPattern = '/^(?:application|text)\/(?:[a-z]+(?:[\.-][0-9a-z]+){0,}[\+\.]|x-)?json(?:-[a-z]+)?/i';
+    protected $jsonPattern = '/^(?:application|text)\/(?:[a-z]+(?:[\.-][0-9a-z]+){0,}[\+\.]|x-)?json(?:-[a-z]+)?/i';
 
     /**
      * XML pattern
      *
      * @var string
      */
-    protected $_xmlPattern = '~^(?:text/|application/(?:atom\+|rss\+)?)xml~i';
+    protected $xmlPattern = '~^(?:text/|application/(?:atom\+|rss\+)?)xml~i';
 
     /**
      * Construct
@@ -254,15 +255,16 @@ class OnePica_AvaTax16_IO_Curl
             throw new \ErrorException('cURL library is not loaded');
         }
 
-        $this->_curl = curl_init();
-        $this->_id = 1;
+        $this->curl = curl_init();
+        $this->id = 1;
         $this->setDefaultUserAgent();
         $this->setDefaultJsonDecoder();
         $this->setDefaultTimeout();
         $this->setOpt(CURLINFO_HEADER_OUT, true);
         $this->setOpt(CURLOPT_HEADERFUNCTION, array($this, 'headerCallback'));
         $this->setOpt(CURLOPT_RETURNTRANSFER, true);
-        $this->_headers = new OnePica_AvaTax16_IO_CaseInsensitiveArray();
+        $this->setOpt(CURLOPT_SSL_VERIFYPEER, false);
+        $this->headers = new CaseInsensitiveArray();
         $this->setURL($base_url);
     }
 
@@ -278,8 +280,8 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($data)) {
             if (self::is_array_multidim($data)) {
-                if (isset($this->_headers['Content-Type']) &&
-                    preg_match($this->_jsonPattern, $this->_headers['Content-Type'])) {
+                if (isset($this->headers['Content-Type']) &&
+                    preg_match($this->jsonPattern, $this->headers['Content-Type'])) {
                     $json_str = json_encode($data);
                     if (!($json_str === false)) {
                         $data = $json_str;
@@ -309,8 +311,8 @@ class OnePica_AvaTax16_IO_Curl
                 }
 
                 if (!$binary_data) {
-                    if (isset($this->_headers['Content-Type']) &&
-                        preg_match($this->_jsonPattern, $this->_headers['Content-Type'])) {
+                    if (isset($this->headers['Content-Type']) &&
+                        preg_match($this->jsonPattern, $this->headers['Content-Type'])) {
                         $json_str = json_encode($data);
                         if (!($json_str === false)) {
                             $data = $json_str;
@@ -347,11 +349,11 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function close()
     {
-        if (is_resource($this->_curl)) {
-            curl_close($this->_curl);
+        if (is_resource($this->curl)) {
+            curl_close($this->curl);
         }
-        $this->_options = null;
-        $this->_jsonDecoder = null;
+        $this->options = null;
+        $this->jsonDecoder = null;
     }
 
     /**
@@ -362,7 +364,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function complete($callback)
     {
-        $this->_completeFunction = $callback;
+        $this->completeFunction = $callback;
     }
 
     /**
@@ -392,7 +394,7 @@ class OnePica_AvaTax16_IO_Curl
         if (is_array($url)) {
             $data = $query_parameters;
             $query_parameters = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
 
         $this->setURL($url, $query_parameters);
@@ -409,10 +411,10 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function downloadComplete($fh)
     {
-        if (!$this->_error && $this->_downloadCompleteFunction) {
+        if (!$this->error && $this->downloadCompleteFunction) {
             rewind($fh);
-            $this->call($this->_downloadCompleteFunction, $fh);
-            $this->_downloadCompleteFunction = null;
+            $this->call($this->downloadCompleteFunction, $fh);
+            $this->downloadCompleteFunction = null;
         }
 
         if (is_resource($fh)) {
@@ -448,7 +450,7 @@ class OnePica_AvaTax16_IO_Curl
     public function download($url, $mixed_filename)
     {
         if (is_callable($mixed_filename)) {
-            $this->_downloadCompleteFunction = $mixed_filename;
+            $this->downloadCompleteFunction = $mixed_filename;
             $fh = tmpfile();
         } else {
             $filename = $mixed_filename;
@@ -459,7 +461,7 @@ class OnePica_AvaTax16_IO_Curl
         $this->get($url);
         $this->downloadComplete($fh);
 
-        return ! $this->_error;
+        return !$this->error;
     }
 
     /**
@@ -470,7 +472,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function error($callback)
     {
-        $this->_errorFunction = $callback;
+        $this->errorFunction = $callback;
     }
 
     /**
@@ -483,46 +485,46 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function exec($ch = null)
     {
-        $this->_responseCookies = array();
+        $this->responseCookies = array();
         if (!($ch === null)) {
-            $this->_rawResponse = curl_multi_getcontent($ch);
+            $this->rawResponse = curl_multi_getcontent($ch);
         } else {
-            $this->call($this->_beforeSendFunction);
-            $this->_rawResponse = curl_exec($this->_curl);
-            $this->_curlErrorCode = curl_errno($this->_curl);
+            $this->call($this->beforeSendFunction);
+            $this->rawResponse = curl_exec($this->curl);
+            $this->curlErrorCode = curl_errno($this->curl);
         }
-        $this->_curlErrorMessage = curl_error($this->_curl);
-        $this->_curlError = !($this->_curlErrorCode === 0);
-        $this->_httpStatusCode = curl_getinfo($this->_curl, CURLINFO_HTTP_CODE);
-        $this->_httpError = in_array(floor($this->_httpStatusCode / 100), array(4, 5));
-        $this->_error = $this->_curlError || $this->_httpError;
-        $this->_errorCode = $this->_error ? ($this->_curlError ? $this->_curlErrorCode : $this->_httpStatusCode) : 0;
+        $this->curlErrorMessage = curl_error($this->curl);
+        $this->curlError = !($this->curlErrorCode === 0);
+        $this->httpStatusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
+        $this->httpError = in_array(floor($this->httpStatusCode / 100), array(4, 5));
+        $this->error = $this->curlError || $this->httpError;
+        $this->errorCode = $this->error ? ($this->curlError ? $this->curlErrorCode : $this->httpStatusCode) : 0;
 
         // NOTE: CURLINFO_HEADER_OUT set to true is required for requestHeaders
         // to not be empty (e.g. $curl->setOpt(CURLINFO_HEADER_OUT, true);).
         if ($this->getOpt(CURLINFO_HEADER_OUT) === true) {
-            $this->_requestHeaders = $this->_parseRequestHeaders(curl_getinfo($this->_curl, CURLINFO_HEADER_OUT));
+            $this->requestHeaders = $this->parseRequestHeaders(curl_getinfo($this->curl, CURLINFO_HEADER_OUT));
         }
-        $this->_responseHeaders = $this->_parseResponseHeaders($this->_rawResponseHeaders);
-        list($this->_response, $this->_rawResponse) = $this->_parseResponse($this->_responseHeaders, $this->_rawResponse);
+        $this->responseHeaders = $this->parseResponseHeaders($this->rawResponseHeaders);
+        list($this->response, $this->rawResponse) = $this->parseResponse($this->responseHeaders, $this->rawResponse);
 
-        $this->_httpErrorMessage = '';
-        if ($this->_error) {
-            if (isset($this->_responseHeaders['Status-Line'])) {
-                $this->_httpErrorMessage = $this->_responseHeaders['Status-Line'];
+        $this->httpErrorMessage = '';
+        if ($this->error) {
+            if (isset($this->responseHeaders['Status-Line'])) {
+                $this->httpErrorMessage = $this->responseHeaders['Status-Line'];
             }
         }
-        $this->_errorMessage = $this->_curlError ? $this->_curlErrorMessage : $this->_httpErrorMessage;
+        $this->errorMessage = $this->curlError ? $this->curlErrorMessage : $this->httpErrorMessage;
 
-        if (!$this->_error) {
-            $this->call($this->_successFunction);
+        if (!$this->error) {
+            $this->call($this->successFunction);
         } else {
-            $this->call($this->_errorFunction);
+            $this->call($this->errorFunction);
         }
 
-        $this->call($this->_completeFunction);
+        $this->call($this->completeFunction);
 
-        return $this->_response;
+        return $this->response;
     }
 
     /**
@@ -538,7 +540,7 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
         $this->setURL($url, $data);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'GET');
@@ -556,7 +558,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getOpt($option)
     {
-        return $this->_options[$option];
+        return $this->options[$option];
     }
 
     /**
@@ -572,7 +574,7 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
         $this->setURL($url, $data);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'HEAD');
@@ -592,9 +594,9 @@ class OnePica_AvaTax16_IO_Curl
     public function headerCallback($ch, $header)
     {
         if (preg_match('/^Set-Cookie:\s*([^=]+)=([^;]+)/mi', $header, $cookie) == 1) {
-            $this->_responseCookies[$cookie[1]] = $cookie[2];
+            $this->responseCookies[$cookie[1]] = $cookie[2];
         }
-        $this->_rawResponseHeaders .= $header;
+        $this->rawResponseHeaders .= $header;
         return strlen($header);
     }
 
@@ -611,7 +613,7 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
         $this->setURL($url, $data);
         $this->unsetHeader('Content-Length');
@@ -632,7 +634,7 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
 
         if (is_array($data) && empty($data)) {
@@ -658,7 +660,7 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
 
         $this->setURL($url);
@@ -681,12 +683,12 @@ class OnePica_AvaTax16_IO_Curl
     {
         if (is_array($url)) {
             $data = $url;
-            $url = $this->_baseUrl;
+            $url = $this->baseUrl;
         }
         $this->setURL($url);
         $this->setOpt(CURLOPT_CUSTOMREQUEST, 'PUT');
         $put_data = $this->buildPostData($data);
-        if (empty($this->_options[CURLOPT_INFILE]) && empty($this->_options[CURLOPT_INFILESIZE])) {
+        if (empty($this->options[CURLOPT_INFILE]) && empty($this->options[CURLOPT_INFILESIZE])) {
             $this->setHeader('Content-Length', strlen($put_data));
         }
         $this->setOpt(CURLOPT_POSTFIELDS, $put_data);
@@ -728,8 +730,8 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setCookie($key, $value)
     {
-        $this->_cookies[$key] = $value;
-        $this->setOpt(CURLOPT_COOKIE, str_replace(' ', '%20', urldecode(http_build_query($this->_cookies, '', '; '))));
+        $this->cookies[$key] = $value;
+        $this->setOpt(CURLOPT_COOKIE, str_replace(' ', '%20', urldecode(http_build_query($this->cookies, '', '; '))));
     }
 
     /**
@@ -751,7 +753,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getResponseCookie($key)
     {
-        return isset($this->_responseCookies[$key]) ? $this->_responseCookies[$key] : null;
+        return isset($this->responseCookies[$key]) ? $this->responseCookies[$key] : null;
     }
 
     /**
@@ -805,7 +807,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setDefaultJsonDecoder()
     {
-        $this->_jsonDecoder = function($response) {
+        $this->jsonDecoder = function($response) {
             $json_obj = json_decode($response, false);
             if (!($json_obj === null)) {
                 $response = $json_obj;
@@ -849,9 +851,9 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setHeader($key, $value)
     {
-        $this->_headers[$key] = $value;
+        $this->headers[$key] = $value;
         $headers = array();
-        foreach ($this->_headers as $key => $value) {
+        foreach ($this->headers as $key => $value) {
             $headers[] = $key . ': ' . $value;
         }
         $this->setOpt(CURLOPT_HTTPHEADER, $headers);
@@ -866,7 +868,7 @@ class OnePica_AvaTax16_IO_Curl
     public function setJsonDecoder($function)
     {
         if (is_callable($function)) {
-            $this->_jsonDecoder = $function;
+            $this->jsonDecoder = $function;
         }
     }
 
@@ -889,8 +891,8 @@ class OnePica_AvaTax16_IO_Curl
             trigger_error($required_options[$option] . ' is a required option', E_USER_WARNING);
         }
 
-        $this->_options[$option] = $value;
-        return curl_setopt($this->_curl, $option, $value);
+        $this->options[$option] = $value;
+        return curl_setopt($this->curl, $option, $value);
     }
 
     /**
@@ -935,9 +937,9 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setURL($url, $data = array())
     {
-        $this->_baseUrl = $url;
-        $this->_url = $this->_buildURL($url, $data);
-        $this->setOpt(CURLOPT_URL, $this->_url);
+        $this->baseUrl = $url;
+        $this->url = $this->buildURL($url, $data);
+        $this->setOpt(CURLOPT_URL, $this->url);
     }
 
     /**
@@ -959,7 +961,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function success($callback)
     {
-        $this->_successFunction = $callback;
+        $this->successFunction = $callback;
     }
 
     /**
@@ -971,7 +973,7 @@ class OnePica_AvaTax16_IO_Curl
     public function unsetHeader($key)
     {
         $this->setHeader($key, '');
-        unset($this->_headers[$key]);
+        unset($this->headers[$key]);
     }
 
     /**
@@ -1004,7 +1006,7 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @return string
      */
-    protected function _buildURL($url, $data = array())
+    protected function buildURL($url, $data = array())
     {
         return $url . (empty($data) ? '' : '?' . http_build_query($data));
     }
@@ -1017,10 +1019,10 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @return array
      */
-    protected function _parseHeaders($raw_headers)
+    protected function parseHeaders($raw_headers)
     {
         $raw_headers = preg_split('/\r\n/', $raw_headers, null, PREG_SPLIT_NO_EMPTY);
-        $http_headers = new OnePica_AvaTax16_IO_CaseInsensitiveArray();
+        $http_headers = new CaseInsensitiveArray();
 
         $raw_headers_count = count($raw_headers);
         for ($i = 1; $i < $raw_headers_count; $i++) {
@@ -1046,10 +1048,10 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @return array
      */
-    protected function _parseRequestHeaders($raw_headers)
+    protected function parseRequestHeaders($raw_headers)
     {
-        $request_headers = new OnePica_AvaTax16_IO_CaseInsensitiveArray();
-        list($first_line, $headers) = $this->_parseHeaders($raw_headers);
+        $request_headers = new CaseInsensitiveArray();
+        list($first_line, $headers) = $this->parseHeaders($raw_headers);
         $request_headers['Request-Line'] = $first_line;
         foreach ($headers as $key => $value) {
             $request_headers[$key] = $value;
@@ -1066,16 +1068,16 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @return array
      */
-    protected function _parseResponse($response_headers, $raw_response)
+    protected function parseResponse($response_headers, $raw_response)
     {
         $response = $raw_response;
         if (isset($response_headers['Content-Type'])) {
-            if (preg_match($this->_jsonPattern, $response_headers['Content-Type'])) {
-                $json_decoder = $this->_jsonDecoder;
+            if (preg_match($this->jsonPattern, $response_headers['Content-Type'])) {
+                $json_decoder = $this->jsonDecoder;
                 if (is_callable($json_decoder)) {
                     $response = $json_decoder($response);
                 }
-            } elseif (preg_match($this->_xmlPattern, $response_headers['Content-Type'])) {
+            } elseif (preg_match($this->xmlPattern, $response_headers['Content-Type'])) {
                 $xml_obj = @simplexml_load_string($response);
                 if (!($xml_obj === false)) {
                     $response = $xml_obj;
@@ -1094,7 +1096,7 @@ class OnePica_AvaTax16_IO_Curl
      *
      * @return array
      */
-    protected function _parseResponseHeaders($raw_response_headers)
+    protected function parseResponseHeaders($raw_response_headers)
     {
         $response_header_array = explode("\r\n\r\n", $raw_response_headers);
         $response_header  = '';
@@ -1105,8 +1107,8 @@ class OnePica_AvaTax16_IO_Curl
             }
         }
 
-        $response_headers = new OnePica_AvaTax16_IO_CaseInsensitiveArray();
-        list($first_line, $headers) = $this->_parseHeaders($response_header);
+        $response_headers = new CaseInsensitiveArray();
+        list($first_line, $headers) = $this->parseHeaders($response_header);
         $response_headers['Status-Line'] = $first_line;
         foreach ($headers as $key => $value) {
             $response_headers[$key] = $value;
@@ -1183,7 +1185,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getError()
     {
-        return $this->_error;
+        return $this->error;
     }
 
     /**
@@ -1193,7 +1195,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getErrorCode()
     {
-        return $this->_errorCode;
+        return $this->errorCode;
     }
 
     /**
@@ -1203,7 +1205,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getErrorMessage()
     {
-        return $this->_errorMessage;
+        return $this->errorMessage;
     }
 
     /**
@@ -1213,7 +1215,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getCurlError()
     {
-        return $this->_curlError;
+        return $this->curlError;
     }
 
     /**
@@ -1223,7 +1225,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getCurlErrorCode()
     {
-        return $this->_curlErrorCode;
+        return $this->curlErrorCode;
     }
 
     /**
@@ -1233,7 +1235,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getCurlErrorMessage()
     {
-        return $this->_curlErrorMessage;
+        return $this->curlErrorMessage;
     }
 
     /**
@@ -1243,7 +1245,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getHttpError()
     {
-        return $this->_httpError;
+        return $this->httpError;
     }
 
     /**
@@ -1253,7 +1255,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getHttpStatusCode()
     {
-        return $this->_httpStatusCode;
+        return $this->httpStatusCode;
     }
 
     /**
@@ -1263,7 +1265,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getHttpErrorMessage()
     {
-        return $this->_httpErrorMessage;
+        return $this->httpErrorMessage;
     }
 
     /**
@@ -1273,7 +1275,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getBaseUrl()
     {
-        return $this->_baseUrl;
+        return $this->baseUrl;
     }
 
     /**
@@ -1283,7 +1285,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getUrl()
     {
-        return $this->_url;
+        return $this->url;
     }
 
     /**
@@ -1293,7 +1295,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getRequestHeaders()
     {
-        return $this->_requestHeaders;
+        return $this->requestHeaders;
     }
 
     /**
@@ -1303,7 +1305,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getResponseHeaders()
     {
-        return $this->_responseHeaders;
+        return $this->responseHeaders;
     }
 
     /**
@@ -1313,7 +1315,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getRawResponseHeaders()
     {
-        return $this->_rawResponseHeaders;
+        return $this->rawResponseHeaders;
     }
 
     /**
@@ -1323,7 +1325,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getResponse()
     {
-        return $this->_response;
+        return $this->response;
     }
 
     /**
@@ -1333,7 +1335,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getRawResponse()
     {
-        return $this->_rawResponse;
+        return $this->rawResponse;
     }
 
     /**
@@ -1343,7 +1345,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getBeforeSendFunction()
     {
-        return $this->_beforeSendFunction;
+        return $this->beforeSendFunction;
     }
 
     /**
@@ -1354,7 +1356,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setBeforeSendFunction($function)
     {
-        $this->_beforeSendFunction = $function;
+        $this->beforeSendFunction = $function;
         return $this;
     }
 
@@ -1365,7 +1367,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function getDownloadCompleteFunction()
     {
-        return $this->_downloadCompleteFunction;
+        return $this->downloadCompleteFunction;
     }
 
     /**
@@ -1376,7 +1378,7 @@ class OnePica_AvaTax16_IO_Curl
      */
     public function setDownloadCompleteFunction($function)
     {
-        $this->_downloadCompleteFunction = $function;
+        $this->downloadCompleteFunction = $function;
         return $this;
     }
 }
