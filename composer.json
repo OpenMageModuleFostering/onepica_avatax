@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/OnePica_AvaTax",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL-3.0)",
+    "homepage": "",
+    "description": "This extension integrates Magento with AvaTax, a tax service provided by Avalara. This will replace existing Magento-based, zipcode tax calculation with the more complex and centralized rules AvaTax provides.",
+    "authors": [
+    {
+        "name": "One Pica Codemaster",
+        "email": "codemaster@onepica.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
