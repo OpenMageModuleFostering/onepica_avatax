@@ -91,7 +91,7 @@ abstract class OnePica_AvaTax_Model_Avatax_Abstract extends OnePica_AvaTax_Model
     	$this->_request->setDiscount(0.00); //cannot be used in Magento
     	$this->_request->setSalespersonCode(Mage::helper('avatax')->getSalesPersonCode($storeId));
     	$this->_request->setLocationCode(Mage::helper('avatax')->getLocationCode($storeId));
-		$this->_request->setCountry(Mage::getStoreConfig('shipping/origin/country_id', $store));
+		$this->_request->setCountry(Mage::getStoreConfig('shipping/origin/country_id', $storeId));
 		$this->_request->setCurrencyCode(Mage::app()->getStore()->getBaseCurrencyCode());
 		$this->_addCustomer($object);
 		if($object instanceof Mage_Sales_Model_Order && $object->getIncrementId()) {
@@ -161,10 +161,8 @@ abstract class OnePica_AvaTax_Model_Avatax_Abstract extends OnePica_AvaTax_Model
 	 * @return bool
 	 */
 	protected function _setDestinationAddress($address) {
-		//$shippingAddress = $quote->getShippingAddress();
-		$street = $address->getStreet();
-		$street1 = isset($street[0]) ? $street[0] : null;
-		$street2 = isset($street[1]) ? $street[1] : null;
+		$street1 = $address->getStreet(1);
+		$street2 = $address->getStreet(2);
 		$city = $address->getCity();
 		$zip = preg_replace('/[^0-9\-]*/', '', $address->getPostcode());
 		$state = Mage::getModel('directory/region')->load($address->getRegionId())->getCode(); 

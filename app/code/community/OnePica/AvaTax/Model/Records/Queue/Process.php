@@ -18,6 +18,22 @@
 class OnePica_AvaTax_Model_Records_Queue_Process extends OnePica_AvaTax_Model_Abstract
 {
     /**
+     * Remove the Failed process
+     *
+     * @return self
+     */
+	public function clear() {
+		$queue = Mage::getModel('avatax_records/queue')->getCollection()
+			->addFieldToFilter('status', OnePica_AvaTax_Model_Records_Queue::QUEUE_STATUS_FAILED);
+					
+		foreach($queue as $item) {
+			$item->delete();
+		}
+
+    	return $this;
+	}
+
+    /**
      * Run the complete process
      *
      * @return self
@@ -83,7 +99,7 @@ class OnePica_AvaTax_Model_Records_Queue_Process extends OnePica_AvaTax_Model_Ab
 	        $item->setAttempt($item->getAttempt() + 1);
 	        try { 
 				$invoice = Mage::getModel('sales/order_invoice')->load($item->getEntityId());
-	        	if($invoice->getId()) Mage::getModel('avatax/avatax_invoice')->invoice($invoice);
+	        	if($invoice->getId()) Mage::getModel('avatax/avatax_invoice')->invoice($invoice, $item);
 	        	$item->setStatus(OnePica_AvaTax_Model_Records_Queue::QUEUE_STATUS_COMPLETE)->setMessage(null)->save();
 	        } catch (OnePica_AvaTax_Model_Avatax_Exception_Unbalanced $e) {
 				$item->setStatus(OnePica_AvaTax_Model_Records_Queue::QUEUE_STATUS_UNBALANCED)->setMessage($e->getMessage())->save();
@@ -111,7 +127,7 @@ class OnePica_AvaTax_Model_Records_Queue_Process extends OnePica_AvaTax_Model_Ab
 	        $item->setAttempt($item->getAttempt() + 1);
 	        try {
 				$creditmemo = Mage::getModel('sales/order_creditmemo')->load($item->getEntityId());
-	        	if($creditmemo->getId()) Mage::getModel('avatax/avatax_invoice')->creditmemo($creditmemo);
+	        	if($creditmemo->getId()) Mage::getModel('avatax/avatax_invoice')->creditmemo($creditmemo, $item);
 	        	$item->setStatus(OnePica_AvaTax_Model_Records_Queue::QUEUE_STATUS_COMPLETE)->setMessage(null)->save();
 	        } catch (OnePica_AvaTax_Model_Avatax_Exception_Unbalanced $e) {
 				$item->setStatus(OnePica_AvaTax_Model_Records_Queue::QUEUE_STATUS_UNBALANCED)->setMessage($e->getMessage())->save();
