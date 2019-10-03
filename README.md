@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 This extension integrates Magento with AvaTax, a tax service provided by Avalara. This will replace existing Magento-based, zipcode tax calculation with the more complex and centralized rules AvaTax provides.
